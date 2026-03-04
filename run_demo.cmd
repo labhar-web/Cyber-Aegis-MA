@@ -17,7 +17,7 @@ echo  ║   ShopDemo (Victim)  +  WAF  +  Command Center          ║
 echo  ╚══════════════════════════════════════════════════════════╝
 echo.
 
-SET "PYTHON=python"
+SET "PYTHON=C:\Users\pc\AppData\Local\Programs\Python\Python313\python.exe"
 SET "ROOT=%~dp0"
 
 :: Kill existing Python instances (only if running)
