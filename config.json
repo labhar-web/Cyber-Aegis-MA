@@ -1,0 +1,33 @@
+{
+  "_comment": "=== CYBER-AEGIS WAF - CENTRAL CONFIGURATION ===",
+  "_comment2": "Change target_url to any website you want to protect.",
+  "target_url": "http://localhost:3000",
+  "waf_port": 8080,
+  "dashboard_port": 5050,
+  "gemini_api_key": "AIzaSyBziXvGN75Mlo7HUGmzyNcS06TRvwSgyfM",
+  "paths": {
+    "log_file": "c:\\Cyber-Aegis MA\\target_app\\security.log",
+    "intel_file": "c:\\Cyber-Aegis MA\\threat_intel.json",
+    "banned_file": "c:\\Cyber-Aegis MA\\target_app\\banned_ips.json"
+  },
+  "ban_threshold": 100,
+  "rate_limit": {
+    "max_rps": 20,
+    "burst": 40,
+    "ban_after": 5
+  },
+  "anomaly_threshold": 0.8,
+  "scoring": {
+    "SQLi": 50,
+    "XSS": 40,
+    "CMD_INJECTION": 60,
+    "DIR_TRAVERSAL": 50,
+    "FUZZING": 20,
+    "BRUTE_FORCE": 10,
+    "HONEYPOT_TRIGGER": 100,
+    "CANARY_USE": 100,
+    "SAFE": 0
+  },
+  "gemini_cooldown_seconds": 20,
+  "analyst_interval_seconds": 60
+}

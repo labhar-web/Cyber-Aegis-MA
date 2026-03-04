@@ -1,0 +1,120 @@
+{
+  "total_requests": 18,
+  "blocked_by_ai": 8,
+  "blocked_by_rules": 0,
+  "attacks_succeeded": 0,
+  "patches_applied": 0,
+  "recent_threats": [
+    {
+      "time": "15:04:34",
+      "layer": "Firewall",
+      "event": "Banned IP 127.0.0.1"
+    },
+    {
+      "time": "15:07:14",
+      "layer": "Firewall",
+      "event": "Banned IP 127.0.0.1"
+    },
+    {
+      "time": "15:08:20",
+      "layer": "Firewall",
+      "event": "Banned IP 127.0.0.1"
+    },
+    {
+      "time": "15:08:33",
+      "layer": "Firewall",
+      "event": "Banned IP 127.0.0.1"
+    },
+    {
+      "time": "15:11:42",
+      "layer": "WAF",
+      "event": "SQLi from 127.0.0.1"
+    },
+    {
+      "time": "15:11:42",
+      "layer": "Firewall",
+      "event": "Banned IP 127.0.0.1"
+    },
+    {
+      "time": "15:11:42",
+      "layer": "WAF",
+      "event": "SQLi from 127.0.0.1"
+    },
+    {
+      "time": "15:11:43",
+      "layer": "Firewall",
+      "event": "Banned IP 127.0.0.1"
+    },
+    {
+      "time": "15:11:44",
+      "layer": "WAF",
+      "event": "SQLi from 127.0.0.1"
+    },
+    {
+      "time": "15:11:44",
+      "layer": "Firewall",
+      "event": "Banned IP 127.0.0.1"
+    },
+    {
+      "time": "15:11:44",
+      "layer": "WAF",
+      "event": "XSS from 127.0.0.1"
+    },
+    {
+      "time": "15:11:45",
+      "layer": "Firewall",
+      "event": "Banned IP 127.0.0.1"
+    },
+    {
+      "time": "15:11:46",
+      "layer": "WAF",
+      "event": "XSS from 127.0.0.1"
+    },
+    {
+      "time": "15:11:46",
+      "layer": "Firewall",
+      "event": "Banned IP 127.0.0.1"
+    },
+    {
+      "time": "15:11:46",
+      "layer": "WAF",
+      "event": "XSS from 127.0.0.1"
+    },
+    {
+      "time": "15:11:46",
+      "layer": "Firewall",
+      "event": "Banned IP 127.0.0.1"
+    },
+    {
+      "time": "15:11:48",
+      "layer": "Firewall",
+      "event": "Banned IP 127.0.0.1"
+    },
+    {
+      "time": "15:11:48",
+      "layer": "Firewall",
+      "event": "Banned IP 127.0.0.1"
+    },
+    {
+      "time": "15:11:49",
+      "layer": "WAF",
+      "event": "CMD_INJECTION from 127.0.0.1"
+    },
+    {
+      "time": "15:11:49",
+      "layer": "Firewall",
+      "event": "Banned IP 127.0.0.1"
+    },
+    {
+      "time": "15:11:50",
+      "layer": "WAF",
+      "event": "DIR_TRAVERSAL from 127.0.0.1"
+    },
+    {
+      "time": "15:11:50",
+      "layer": "Firewall",
+      "event": "Banned IP 127.0.0.1"
+    }
+  ],
+  "status": "MONITORING"
+}

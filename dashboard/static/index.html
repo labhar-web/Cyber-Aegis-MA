@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber-Aegis MA — Command Center</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+</head>
+
+<body>
+
+    <!-- ════ SIDEBAR ════════════════════════════════════════════ -->
+    <nav class="sidebar">
+
+        <div class="sidebar-brand">
+            <div class="brand-icon">
+                <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" width="36" height="36">
+                    <path d="M20 3L5 10V20C5 28.5 11.5 36.5 20 39C28.5 36.5 35 28.5 35 20V10L20 3Z" fill="url(#sg)"
+                        stroke="#388bfd" stroke-width="1.5" />
+                    <path d="M14 20L18 24L26 16" stroke="white" stroke-width="2.5" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <defs>
+                        <linearGradient id="sg" x1="5" y1="3" x2="35" y2="39" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#0d1117" />
+                            <stop offset="1" stop-color="#1a2845" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </div>
+            <div>
+                <div class="brand-name">CYBER-AEGIS MA</div>
+                <div class="brand-sub">WAF COMMAND CENTER</div>
+            </div>
+        </div>
+
+        <ul class="sidebar-nav">
+            <li class="nav-item active" data-tab="overview">
+                <span class="nav-icon">◈</span> Overview
+            </li>
+            <li class="nav-item" data-tab="ai">
+                <span class="nav-icon">◆</span> AI Learning
+            </li>
+            <li class="nav-item" data-tab="anomaly">
+                <span class="nav-icon">◇</span> Anomaly Scores
+            </li>
+            <li class="nav-item" data-tab="firewall">
+                <span class="nav-icon">◉</span> IP Firewall
+            </li>
+            <li class="nav-item" data-tab="logs">
+                <span class="nav-icon">≡</span> Security Logs
+            </li>
+            <li class="nav-item" data-tab="settings">
+                <span class="nav-icon">⚙</span> Settings
+            </li>
+        </ul>
+
+        <div class="sidebar-footer">
+
+            <!-- Global Threat Level Beacon -->
+            <div class="threat-level-beacon" id="threat-beacon">
+                <div class="beacon-label">GLOBAL THREAT LEVEL</div>
+                <div class="beacon-level" id="beacon-level">
+                    <span class="beacon-dot" id="beacon-dot"></span>
+                    <span id="beacon-text">LOADING</span>
+                </div>
+                <div class="beacon-score" id="beacon-score">Score: --</div>
+                <div class="beacon-summary" id="beacon-summary">Connecting to WAF...</div>
+            </div>
+
+            <div class="waf-status-badge" id="waf-badge">
+                <span class="pulse-ring"></span>
+                <span class="status-dot-main"></span>
+                <span id="waf-status-text">WAF ONLINE</span>
+            </div>
+            <div class="server-time" id="server-time">--:--:--</div>
+            <div class="target-badge" id="target-badge">
+                <span class="target-dot">⬤</span>
+                <span id="target-host">Loading...</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ════ MAIN ════════════════════════════════════════════ -->
+    <main class="main-content">
+
+        <!-- HEADER -->
+        <header class="top-header">
+            <div class="header-left">
+                <h1 class="page-title" id="page-title">Overview</h1>
+                <p class="page-sub">Real-time threat intelligence &amp; AI-powered protection</p>
+            </div>
+            <div class="header-actions">
+                <div class="threat-badge" id="global-threat-badge">
+                    <span id="global-threat-level">LOADING</span>
+                </div>
+                <button class="btn-report" onclick="downloadReport()">
+                    <span>↓</span> Incident Report
+                </button>
+            </div>
+        </header>
+
+        <!-- ── TAB: OVERVIEW ────────────────────────────────────── -->
+        <section id="tab-overview" class="tab-content active">
+
+            <!-- KPI Row -->
+            <div class="kpi-grid">
+                <div class="kpi-card" id="kc-total">
+                    <div class="kpi-top">
+                        <span class="kpi-icon-svg">📡</span>
+                        <span class="kpi-trend" id="trend-total">+0</span>
+                    </div>
+                    <div class="kpi-value" id="kpi-total">0</div>
+                    <div class="kpi-label">Total Requests</div>
+                    <div class="kpi-bar-bg">
+                        <div class="kpi-bar-fill blue" id="kbar-total"></div>
+                    </div>
+                </div>
+                <div class="kpi-card danger-card" id="kc-blocked">
+                    <div class="kpi-top">
+                        <span class="kpi-icon-svg">🛡</span>
+                        <span class="kpi-trend" id="trend-blocked">+0</span>
+                    </div>
+                    <div class="kpi-value" id="kpi-blocked">0</div>
+                    <div class="kpi-label">Threats Blocked</div>
+                    <div class="kpi-bar-bg">
+                        <div class="kpi-bar-fill red" id="kbar-blocked"></div>
+                    </div>
+                </div>
+                <div class="kpi-card warn-card" id="kc-banned">
+                    <div class="kpi-top">
+                        <span class="kpi-icon-svg">🔒</span>
+                        <span class="kpi-trend" id="trend-banned">0</span>
+                    </div>
+                    <div class="kpi-value" id="kpi-banned">0</div>
+                    <div class="kpi-label">IPs Banned</div>
+                    <div class="kpi-bar-bg">
+                        <div class="kpi-bar-fill yellow" id="kbar-banned"></div>
+                    </div>
+                </div>
+                <div class="kpi-card success-card" id="kc-clean">
+                    <div class="kpi-top">
+                        <span class="kpi-icon-svg">✔</span>
+                        <span class="kpi-trend" id="trend-clean">+0</span>
+                    </div>
+                    <div class="kpi-value" id="kpi-clean">0</div>
+                    <div class="kpi-label">Clean Requests</div>
+                    <div class="kpi-bar-bg">
+                        <div class="kpi-bar-fill green" id="kbar-clean"></div>
+                    </div>
+                </div>
+                <div class="kpi-card info-card">
+                    <div class="kpi-top"><span class="kpi-icon-svg">⚡</span></div>
+                    <div class="kpi-value" id="kpi-sqli">0</div>
+                    <div class="kpi-label">SQLi Blocked</div>
+                    <div class="kpi-bar-bg">
+                        <div class="kpi-bar-fill cyan" id="kbar-sqli"></div>
+                    </div>
+                </div>
+                <div class="kpi-card info-card">
+                    <div class="kpi-top"><span class="kpi-icon-svg">🐛</span></div>
+                    <div class="kpi-value" id="kpi-xss">0</div>
+                    <div class="kpi-label">XSS Blocked</div>
+                    <div class="kpi-bar-bg">
+                        <div class="kpi-bar-fill purple" id="kbar-xss"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts + Feed Row -->
+            <div class="charts-row">
+                <!-- Live requests chart -->
+                <div class="card chart-card">
+                    <div class="card-header">
+                        <div class="card-title">Live Request Timeline</div>
+                        <div class="card-badge live-badge">● LIVE</div>
+                    </div>
+                    <div class="chart-wrap">
+                        <canvas id="chart-timeline"></canvas>
+                    </div>
+                </div>
+
+                <!-- Attack distribution doughnut -->
+                <div class="card chart-card chart-sm">
+                    <div class="card-header">
+                        <div class="card-title">Attack Distribution</div>
+                    </div>
+                    <div class="chart-wrap donut-wrap">
+                        <canvas id="chart-donut"></canvas>
+                    </div>
+                    <div id="donut-legend" class="donut-legend"></div>
+                </div>
+            </div>
+
+            <!-- Defense Layers + AI Summary + Feed -->
+            <div class="row-3">
+                <div class="card">
+                    <div class="card-title">Defense Architecture</div>
+                    <div class="layer-stack">
+                        <div class="layer-block active">
+                            <div class="layer-badge l0">L0</div>
+                            <div>
+                                <div class="layer-name">IP Firewall</div>
+                                <div class="layer-desc">Instant ban enforcement</div>
+                            </div>
+                            <div class="layer-status green-dot"></div>
+                        </div>
+                        <div class="layer-block active">
+                            <div class="layer-badge l05">L0.5</div>
+                            <div>
+                                <div class="layer-name">Rate Limiter</div>
+                                <div class="layer-desc">Token-bucket 20 req/s</div>
+                            </div>
+                            <div class="layer-status yellow-dot"></div>
+                        </div>
+                        <div class="layer-block active">
+                            <div class="layer-badge l1">L1</div>
+                            <div>
+                                <div class="layer-name">Regex WAF</div>
+                                <div class="layer-desc">SQLi / XSS / CMD / DIR</div>
+                            </div>
+                            <div class="layer-status green-dot"></div>
+                        </div>
+                        <div class="layer-block active">
+                            <div class="layer-badge l15">L1.5</div>
+                            <div>
+                                <div class="layer-name">ML Anomaly Detector</div>
+                                <div class="layer-desc">Z-Score + Isolation Forest</div>
+                            </div>
+                            <div class="layer-status blue-dot" id="ml-dot"></div>
+                        </div>
+                        <div class="layer-block active">
+                            <div class="layer-badge l2">L2</div>
+                            <div>
+                                <div class="layer-name">Gemini AI</div>
+                                <div class="layer-desc">Async deep classification</div>
+                            </div>
+                            <div class="layer-status blue-dot"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">AI Threat Report</div>
+                        <div class="card-badge gemini-badge">Gemini 2.5</div>
+                    </div>
+                    <div class="ai-level-display" id="ai-threat-level">ANALYZING...</div>
+                    <p class="ai-summary" id="ai-summary">Waiting for the first Gemini analysis...</p>
+                    <div class="ai-rec" id="ai-rec"></div>
+                    <div class="ai-tags" id="ai-tags"></div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Live Threat Feed</div>
+                        <div class="card-badge">Real-time</div>
+                    </div>
+                    <div id="threat-feed" class="threat-feed"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── TAB: AI LEARNING ─────────────────────────────────── -->
+        <section id="tab-ai" class="tab-content">
+            <div class="ai-learning-header">
+                <div class="ai-learn-badge" id="ai-learn-badge">
+                    <span id="ai-learn-icon">⟳</span>
+                    <span id="ai-learn-status">Building baseline...</span>
+                </div>
+                <div class="ai-sample-count">
+                    <span style="color:var(--text-muted);font-size:.8rem;">TRAINING SAMPLES</span>
+                    <div class="ai-sample-number" id="ai-sample-count">0 / 30</div>
+                </div>
+                <div class="ai-threshold-display">
+                    <span style="color:var(--text-muted);font-size:.8rem;">ADAPTIVE THRESHOLD</span>
+                    <div class="ai-sample-number" id="ai-threshold-val">0.80</div>
+                </div>
+            </div>
+
+            <div class="ai-grid">
+                <div class="card">
+                    <div class="card-title">Behavioral Feature Baselines</div>
+                    <div id="feature-baselines" class="feature-baselines">
+                        <div style="color:var(--text-muted);font-size:.82rem;text-align:center;padding:20px;">Baseline
+                            builds after first 5 requests arrive...</div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title">Adaptive Threshold History</div>
+                    <div class="chart-wrap" style="height:180px;">
+                        <canvas id="chart-threshold"></canvas>
+                    </div>
+                    <div style="font-size:0.75rem;color:var(--text-muted);margin-top:8px;">
+                        Threshold decreases (becomes stricter) as the system learns normal behavior.
+                    </div>
+                </div>
+            </div>
+
+            <div class="card full-width" style="margin-top:16px;">
+                <div class="card-header">
+                    <div class="card-title">Anomaly Events (AI-Detected)</div>
+                    <div class="card-badge">Auto-Learn</div>
+                </div>
+                <div id="anomaly-events-feed" class="threat-feed tall"></div>
+            </div>
+        </section>
+
+        <!-- ── TAB: ANOMALY SCORES ──────────────────────────────── -->
+        <section id="tab-anomaly" class="tab-content">
+            <div class="two-col">
+                <div class="card">
+                    <div class="card-title">🤖 ML Engine</div>
+                    <div class="ai-level-display" id="ml-status-label">Loading...</div>
+                    <p style="font-size:.82rem;color:var(--text-muted);margin-top:6px;" id="ml-status-desc"></p>
+                    <div style="margin-top:16px;">
+                        <div class="engine-row"><span class="engine-dot yellow"></span><b>Z-Score Engine</b> — Always
+                            active</div>
+                        <div class="engine-row"><span class="engine-dot" id="dot-isoforest"
+                                style="background:var(--text-muted)"></span><b>Isolation Forest</b> — Needs 30+ samples
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title">⛔ Rate Limit Violations</div>
+                    <div id="rate-stats" style="margin-bottom:10px;font-size:0.85rem;"></div>
+                    <div id="rate-events" class="threat-feed" style="max-height:180px;"></div>
+                </div>
+            </div>
+
+            <div class="card full-width" style="margin-top:16px;">
+                <div class="card-title">📊 IP Anomaly Scores — Behavioral Analysis</div>
+                <table class="data-table" id="anomaly-table">
+                    <thead>
+                        <tr>
+                            <th>IP Address</th>
+                            <th style="width:35%;">Anomaly Score</th>
+                            <th>Risk Level</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="anomaly-table-body">
+                        <tr>
+                            <td colspan="4" class="empty-msg">Scores appear after the first requests arrive.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ── TAB: FIREWALL ─────────────────────────────────────── -->
+        <section id="tab-firewall" class="tab-content">
+            <div class="card full-width">
+                <div class="card-header">
+                    <div class="card-title">Banned IP Addresses</div>
+                    <div class="card-badge" id="ban-count-badge">0 Banned</div>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>IP Address</th>
+                            <th>Reason</th>
+                            <th>Banned At</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ban-table-body">
+                        <tr>
+                            <td colspan="4" class="empty-msg">No IPs are currently banned.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ── TAB: LOGS ─────────────────────────────────────────── -->
+        <section id="tab-logs" class="tab-content">
+            <div class="card full-width">
+                <div class="card-header">
+                    <div class="card-title">Security Log (Live)</div>
+                    <input id="log-search" class="search-input" placeholder="🔍 Filter logs..." oninput="filterLogs()">
+                </div>
+                <div id="log-view" class="log-view"></div>
+            </div>
+        </section>
+
+        <!-- ── TAB: SETTINGS ─────────────────────────────────────── -->
+        <section id="tab-settings" class="tab-content">
+            <div class="two-col">
+                <div class="card">
+                    <div class="card-title">WAF Configuration</div>
+                    <div class="settings-form">
+                        <label>Target URL (Website to Protect)</label>
+                        <input type="url" id="cfg-target" placeholder="https://your-website.com">
+                        <label>WAF Port</label>
+                        <input type="number" id="cfg-waf-port" placeholder="8080">
+                        <label>Ban Threshold (Points)</label>
+                        <input type="number" id="cfg-threshold" placeholder="100">
+                        <label>Rate Limit (req/s)</label>
+                        <input type="number" id="cfg-rps" placeholder="20">
+                        <button class="btn-save" onclick="saveConfig()">✓ Save Configuration</button>
+                        <div id="save-msg" class="save-msg"></div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title">Attack Scoring Weights</div>
+                    <div id="scoring-form" class="scoring-grid"></div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
