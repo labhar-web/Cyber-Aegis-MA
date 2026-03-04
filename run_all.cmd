@@ -13,7 +13,7 @@ echo.
 echo  [Cyber-Aegis MA] Starting all services...
 echo.
 
-SET "PYTHON=python"
+SET "PYTHON=C:\Users\pc\AppData\Local\Programs\Python\Python313\python.exe"
 SET "ROOT=%~dp0"
 
 :: Kill any existing python processes safely
